@@ -4,7 +4,7 @@ app.controller("Videos", function($scope, $http, requester) {
 
   var i = 0;
   var k=0;
-  var channels = ["ProDance TV", "TVlilou"];
+  var channels = ["ProDance TV", "TVlilou", "OckeFilms", "The Legits", "stance"];
   $scope.tv = {}
   $scope.loadMore = function() {
      if(channels.length >0)
