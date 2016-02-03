@@ -97,13 +97,13 @@
                         <div style="overflow:hidden;width: 245px;" owl-carousel-item="" ng-repeat="poi in videos"
                              class="item">
                             <div class="media">
-                                <a ng-href="{{ poi.get_absolute_url }}" class="thumbnail video-list-thumbs">
+                                <a ng-href="{{ poi.url }}" class="thumbnail video-list-thumbs">
                                     <img style="height: 181px;" ng-src="{{ poi.thumbnail_url}}" class="img-responsive"/>
                                 </a>
                                 <div class="caption" style="margin-top:-15px">
                                     <div class="row">
                                         <div>
-                                        	<strong><a ng-href="{{ poi.get_absolute_url }}">{{ poi.title
+                                        	<strong><a ng-href="{{ poi.url }}">{{ poi.title
                                             }}</a>
                                             </strong>
                                         </div>
