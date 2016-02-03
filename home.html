@@ -26,6 +26,9 @@
 
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+ 	<!-- Owl Carousel -->
+    <link rel="stylesheet" href="/site_media/static/bower_components/owl.carousel/dist/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/site_media/static/bower_components/owl.carousel/dist/assets/owl.carousel.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -79,8 +82,41 @@
         </div>
     </header>
 
-     <section id="about" class="container content-section text-center">
-        <div class="row"></div>
+     <section id="about" class="container content-section text-center" ng-controller="Videos">
+        <div class="row">
+        	<div infinite-scroll='loadMore()'>
+            <div ng-repeat="(key, videos) in tv">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 ng-cloak>{{key}}</h2>
+                    </div>
+                </div>
+                <div>
+                    <data-owl-carousel class="owl-carousel"
+                        data-options="{items:6, autoWidth:true, margin:20, stagePadding:50, slideBy:5,navRewind:false, nav:true, navText: [&#x27;<&#x27;,&#x27;>&#x27;], startPosition: 0}">
+                        <div style="overflow:hidden;width: 245px;" owl-carousel-item="" ng-repeat="poi in videos"
+                             class="item">
+                            <div class="media">
+                                <a ng-href="{{ poi.get_absolute_url }}" class="thumbnail video-list-thumbs">
+                                    <img style="height: 181px;" ng-src="{{ poi.thumbnail_url}}" class="img-responsive"/>
+                                </a>
+                                <div class="caption" style="margin-top:-15px">
+                                    <div class="row">
+                                        <div>
+                                        	<strong><a ng-href="{{ poi.get_absolute_url }}">{{ poi.title
+                                            }}</a>
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </data-owl-carousel>
+                </div>
+            </div>
+        </div>
+
+        </div>
     </section>
 
 	<footer>
@@ -92,6 +128,14 @@
     <script src="site_media/static/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="site_media/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Angular 1.4.9 -->
+    <script src="site_media/static/bower_components/angular/angular.min.js"></script>
+    <!-- Owl Carousel  2.0.0 -->
+    <script src="/site_media/static/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
+    <!-- Infinite Scroll -->
+    <script src="/site_media/static/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+    <script src="site_media/static/js/videos.js"></script>
+    <script src="/site_media/static/js/owl_carousel.js"></script>
 </body>
 
 </html>
