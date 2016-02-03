@@ -2,8 +2,9 @@
 <html lang="en" ng-app="newdancetv">
 
 <head>
-
     <meta charset="utf-8">
+    <meta name="robots" content="all,follow">
+    <meta name="googlebot" content="index,follow,snippet,archive">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Welcome to New Dance TV website">
@@ -18,6 +19,8 @@
 
     <title>New Dance TV</title>
 
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,700,800' rel='stylesheet' type='text/css'>
+
     <!-- Bootstrap Core CSS -->
     <link href="site_media/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
 
@@ -29,6 +32,10 @@
  	<!-- Owl Carousel -->
     <link rel="stylesheet" href="/site_media/static/bower_components/owl.carousel/dist/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="/site_media/static/bower_components/owl.carousel/dist/assets/owl.carousel.min.css">
+      <!-- Theme stylesheet, if possible do not edit this stylesheet -->
+    <link href="/site_media/static/css/style.default.css" rel="stylesheet" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes -->
+    <link href="/site_media/static/css/custom.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,102 +47,178 @@
 </head>
 
 <body>
-   
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand page-scroll" href="/">
-                    New Dance TV
-                </a>
-            </div>
+    
+    <div id="all">
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li>
-                        <a href="#about">About us</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+        <header>
 
-    <!-- Intro Header -->
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <h1>New Dance TV</h1>
-                    <p>Welcome to New Dance TV website</p>
-                    <a href="#about" class="btn btn-circle"></a>
-                </div>
-            </div>
-        </div>
-    </header>
+            <div id="top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-5 contact">
+                            <p class="hidden-sm hidden-xs">Contact us on +000000 or hello@world.com.</p>
+                            <p class="hidden-md hidden-lg"><a href="#" data-animate-hover="pulse"><i class="fa fa-phone"></i></a>  <a href="#" data-animate-hover="pulse"><i class="fa fa-envelope"></i></a>
+                            </p>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="social">
+                                <a href="#" class="external facebook" data-animate-hover="pulse"><i class="fa fa-facebook"></i></a>
+                                <a href="#" class="external gplus" data-animate-hover="pulse"><i class="fa fa-google-plus"></i></a>
+                                <a href="#" class="external twitter" data-animate-hover="pulse"><i class="fa fa-twitter"></i></a>
+                                <a href="#" class="email" data-animate-hover="pulse"><i class="fa fa-envelope"></i></a>
+                            </div>
 
-     <section id="about" class="container content-section text-center" ng-controller="Videos">
-        <div class="row">
-        	<div infinite-scroll='loadMore()'>
-            <div ng-repeat="(key, videos) in tv">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2 ng-cloak>{{key}}</h2>
+                            <div class="login">
+                                <a href="#" data-toggle="modal" data-target="#login-modal"><i class="fa fa-sign-in"></i> <span class="hidden-xs text-uppercase">Sign in</span></a>
+                                <a href="customer-register.html"><i class="fa fa-user"></i> <span class="hidden-xs text-uppercase">Sign up</span></a>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <data-owl-carousel class="owl-carousel"
-                        data-options="{items:6, autoWidth:true, margin:20, stagePadding:50, slideBy:5,navRewind:false, nav:true, navText: [&#x27;<&#x27;,&#x27;>&#x27;], startPosition: 0}">
-                        <div style="overflow:hidden;width: 245px;" owl-carousel-item="" ng-repeat="poi in videos"
-                             class="item">
-                            <div class="media">
-                                <a ng-href="{{ poi.url }}" class="thumbnail video-list-thumbs">
-                                    <img style="height: 181px;" ng-src="{{ poi.thumbnail_url}}" class="img-responsive"/>
-                                </a>
-                                <div class="caption" style="margin-top:-15px">
-                                    <div class="row">
-                                        <div>
-                                        	<strong><a ng-href="{{ poi.url }}">{{ poi.title
-                                            }}</a>
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
+            </div>
+
+            <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+                <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+                    <div class="container">
+                        <div class="navbar-header">
+
+                            <a class="navbar-brand home" href="home.html">
+                                <!-- img src="img/logo.png" alt="Universal logo" class="hidden-xs hidden-sm"-->
+                                <!--img src="img/logo-small.png" alt="Universal logo" class="visible-xs visible-sm"-->
+                                <span class="sr-only">New Dance TV</span>
+                            </a>
+                            <div class="navbar-buttons">
+                                <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <i class="fa fa-align-justify"></i>
+                                </button>
                             </div>
                         </div>
-                    </data-owl-carousel>
+
+                        <div class="navbar-collapse collapse" id="navigation">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <a href="#page-top">Home</a>
+                                </li>
+                                <li>
+                                    <a href="#about">About us</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        <!-- Intro Header -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1>New Dance TV</h1>
+                        <p>Welcome to New Dance TV website</p>
+                        <a href="#about" class="btn btn-circle"></a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+                <!-- *** LOGIN MODAL ***
+_________________________________________________________ -->
+
+        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="Login">Login</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="customer-orders.html" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="email_modal" placeholder="email">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="password_modal" placeholder="password">
+                            </div>
+
+                            <p class="text-center">
+                                <button class="btn btn-template-main"><i class="fa fa-sign-in"></i> Log in</button>
+                            </p>
+
+                        </form>
+
+                        <p class="text-center text-muted">Not registered yet?</p>
+                        <p class="text-center text-muted"><a href="customer-register.html"><strong>Register now</strong></a>! It is easy and done in 1&nbsp;minute and gives you access to special discounts and much more!</p>
+
+                    </div>
                 </div>
             </div>
         </div>
 
-        </div>
-    </section>
+        <!-- *** LOGIN MODAL END *** -->
+        <section class="bar background-white no-mb" ng-controller="Videos">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" infinite-scroll='loadMore()'>
+        
+                        <div ng-repeat="(key, videos) in tv">
+                            <div class="row">
+                                <div class="heading text-center">
+                                    <h2 ng-cloak>{{key}}</h2>
+                                </div>
+                            </div>
+                            <div>
+                                <data-owl-carousel class="owl-carousel"
+                                    data-options="{items:6, autoWidth:true, margin:20, stagePadding:50, slideBy:5,navRewind:false, nav:true, navText: [&#x27;<&#x27;,&#x27;>&#x27;], startPosition: 0}">
+                                    <div style="overflow:hidden;width: 245px;" owl-carousel-item=""  ng-repeat="poi in videos"
+                                         class="item">
+                                        <div class="media">
+                                            <a ng-href="{{ poi.url }}" class="thumbnail video-list-thumbs">
+                                                <img style="height: 181px;" ng-src="{{ poi.thumbnail_url}}" class="img-responsive"/>
+                                            </a>
+                                            <div class="caption" style="margin-top:-15px">
+                                                <div class="row">
+                                                    <div>
+                                                    	<strong><a ng-href="{{ poi.url }}">{{ poi.title
+                                                        }}</a>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </data-owl-carousel>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </section>
 
-	<footer>
-		<div class="container text-center">
-            <p>Copyright &copy; NewDancTV by <a href="http://bboyrankingz.com">Bboyrankingz</a> 2016</p>
-        </div>
-	</footer>
-	<!-- jQuery -->
-    <script src="site_media/static/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="site_media/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Angular 1.4.9 -->
-    <script src="site_media/static/bower_components/angular/angular.min.js"></script>
-    <!-- Owl Carousel  2.0.0 -->
-    <script src="/site_media/static/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
-    <!-- Infinite Scroll -->
-    <script src="/site_media/static/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
-    <script src="site_media/static/js/videos.js"></script>
-    <script src="/site_media/static/js/owl_carousel.js"></script>
+    	<footer id="footer">
+    		<div class="container text-center">
+                <p>Copyright &copy; NewDanceTV by <a href="http://bboyrankingz.com">Bboyrankingz</a> 2016</p>
+            </div>
+    	</footer>
+    	<!-- jQuery -->
+        <script src="site_media/static/bower_components/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="site_media/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- Angular 1.4.9 -->
+        <script src="site_media/static/bower_components/angular/angular.min.js"></script>
+        <!-- Owl Carousel  2.0.0 -->
+        <script src="/site_media/static/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
+        <!-- Infinite Scroll -->
+        <script src="/site_media/static/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+        <script src="site_media/static/js/videos.js"></script>
+        <script src="/site_media/static/js/owl_carousel.js"></script>
+    </div>
 </body>
 
 </html>
