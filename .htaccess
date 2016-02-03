@@ -1,0 +1,13 @@
+AddHandler fcgid-script .fcgi
+RewriteEngine On
+DirectoryIndex home.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ home.html$1 [QSA,L]
+
+ExpiresActive On
+
+ExpiresByType image/jpg "access plus 2 hours"
+ExpiresByType image/png "access plus 2 hours"
+
+ExpiresByType text/css "access plus 1 years"
+ExpiresByType application/x-javascript "access plus 1 years"
