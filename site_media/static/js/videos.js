@@ -1,4 +1,4 @@
-var app = angular.module("newdancetv", ['infinite-scroll']);
+var app = angular.module("newdancetv", ['ngRoute', 'infinite-scroll']);
 
 app.controller("Videos", function($scope, $http, requester) {
 
@@ -29,7 +29,21 @@ app.factory('requester', function($http) {
     return { getData: getData };
 });
 
- 
+
+app.config(function($routeProvider, $locationProvider) {
+  $routeProvider
+   .when('/home', {
+    templateUrl: 'home.html',
+    controller: 'Videos'
+  })
+  .when('/about', {
+    templateUrl: 'about.html',
+    controller: 'Videos'
+  })
+  .otherwise({redirectTo: '/home'});
+});
+
+
 
 
 
