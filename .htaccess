@@ -1,13 +1,12 @@
-AddHandler fcgid-script .fcgi
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
 RewriteEngine On
-DirectoryIndex home.html
+RewriteBase /
+RewriteRule ^home\.html$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ home.html$1 [QSA,L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /home.html [L]
+</IfModule>
 
-ExpiresActive On
+# END WordPress
 
-ExpiresByType image/jpg "access plus 2 hours"
-ExpiresByType image/png "access plus 2 hours"
-
-ExpiresByType text/css "access plus 1 years"
-ExpiresByType application/x-javascript "access plus 1 years"
