@@ -2,8 +2,6 @@ var app = angular.module("newdancetv", ['ngRoute', 'infinite-scroll']);
 
 app.controller("Videos", function($scope, $http, requester) {
 
-  var i = 0;
-  var k=0;
   var channels = ["ProDance TV", "TVlilou", "OckeFilms", "The Legits", "stance"];
   $scope.tv = {}
 
@@ -12,7 +10,7 @@ app.controller("Videos", function($scope, $http, requester) {
       $scope.tv["NewDanceTV Choices"] = data.results;
     });
 
-  $http.get('http://bboyrankingz.com/footage/list/.json?submitted_by__groups__name=n&referrer=newdance.tv').
+  $http.get('http://bboyrankingz.com/footage/list/.json?submitted_by__groups__name=&referrer=newdance.tv').
     success(function(data, status, headers, config) {
       $scope.tv["User videos"] = data.results;
     });
