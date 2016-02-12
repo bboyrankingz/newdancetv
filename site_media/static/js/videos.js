@@ -5,16 +5,7 @@ app.controller("Videos", function($scope, $http, requester) {
   var channels = ["ProDance TV", "TVlilou", "OckeFilms", "The Legits", "stance"];
   var token = "";
   $scope.tv = {}
-
-  $http.get('http://bboyrankingz.com/footage/list/.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv').
-    success(function(data, status, headers, config) {
-      $scope.tv["NewDanceTV Choices"] = data.results;
-    });
-
-  $http.get('http://bboyrankingz.com/footage/list/.json?submitted_by__groups__name=&referrer=newdance.tv').
-    success(function(data, status, headers, config) {
-      $scope.tv["User videos"] = data.results;
-    });
+  load_users_videos();
 
   $scope.loadMore = function() {
      if(channels.length >0)
@@ -34,7 +25,6 @@ app.controller("Videos", function($scope, $http, requester) {
           method: 'POST'
         }).
         success(function(data) {
-            console.log(data["token"]);
             $http.defaults.headers.common['Authorization'] = 'Token ' + data["token"];
             $('#login-modal').modal('hide');
         }).
@@ -51,12 +41,26 @@ app.controller("Videos", function($scope, $http, requester) {
           method: 'POST'
         }).
         success(function(data) {
-            console.log(data);
-            window.location.href = '/footage/' + data["results"][0]["id"];
+          load_users_videos();
         }).
         error(function(data) {
+          //error but works ... use jsonp
+          load_users_videos();
         });
 
+  };
+
+  function load_users_videos()
+  {
+    $http.get('http://bboyrankingz.com/footage/list/.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv').
+      success(function(data, status, headers, config) {
+        $scope.tv["NewDanceTV Choices"] = data.results;
+      });
+
+    $http.get('http://bboyrankingz.com/footage/list/.json?submitted_by__groups__name=none&referrer=newdance.tv').
+      success(function(data, status, headers, config) {
+        $scope.tv["User videos"] = data.results;
+      });
   };
 
 
