@@ -3,6 +3,7 @@ var app = angular.module("newdancetv", ['ngRoute', 'infinite-scroll']);
 app.controller("Videos", function($scope, $http, requester) {
 
   var channels = ["ProDance TV", "TVlilou", "OckeFilms", "The Legits", "stance"];
+  var token = "";
   $scope.tv = {}
 
   $http.get('http://bboyrankingz.com/footage/list/.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv').
@@ -26,12 +27,24 @@ app.controller("Videos", function($scope, $http, requester) {
      }
   };
 
+  $scope.login = function(){
+      $http({
+          url: 'http://bboyrankingz.com/api-token-auth/',
+          data:  {'username': $scope.username_modal, "password": $scope.password_modal},
+          method: 'POST'
+        }).
+        success(function(data) {
+            console.log(data["token"]);
+            $http.defaults.headers.common['Authorization'] = 'Token ' + data["token"];
+            $('#login-modal').modal('hide');
+        }).
+        error(function(data) {
+          alert("error... This message will be better later")
+        });
+
+  };
+
   $scope.push = function(){
-      $http.defaults.xsrfCookieName = 'csrftoken';
-      $http.defaults.xsrfHeaderName = 'X-CSRFToken';
-
-      console.log($http.defaults.xsrfCookieName);
-
       $http({
           url: 'http://bboyrankingz.com/footage/list/.json',
           data:  {'url': $scope.form_url, "referrer": "newdance.tv"},
