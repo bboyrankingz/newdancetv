@@ -1,9 +1,10 @@
-var app = angular.module("newdancetv", ['ngRoute', 'infinite-scroll']);
+var app = angular.module("newdancetv", ['ngRoute', 'infinite-scroll', 'ngCookies']);
 
-app.controller("Videos", function($scope, $http, requester) {
+app.controller("Videos", function($scope, $http, $cookies, requester) {
 
   var channels = ["ProDance TV", "TVlilou", "OckeFilms", "The Legits", "stance"];
   var token = "";
+  $scope.username = $cookies.get('username')
   $scope.tv = {}
   load_users_videos();
 
@@ -25,7 +26,9 @@ app.controller("Videos", function($scope, $http, requester) {
           method: 'POST'
         }).
         success(function(data) {
-            $http.defaults.headers.common['Authorization'] = 'Token ' + data["token"];
+            $cookies.put('Token', 'Token ' + data["token"]);
+            $cookies.put('username', $scope.username_modal);
+            $scope.username = $scope.username_modal;
             $('#login-modal').modal('hide');
         }).
         error(function(data) {
@@ -34,7 +37,14 @@ app.controller("Videos", function($scope, $http, requester) {
 
   };
 
+  $scope.logout = function(){
+    $cookies.remove('Token');
+    $cookies.remove('username');
+    $scope.username = ""
+  };
+
   $scope.push = function(){
+      $http.defaults.headers.common['Authorization'] = $cookies.get("Token");
       $http({
           url: 'http://bboyrankingz.com/footage/list/.json',
           data:  {'url': $scope.form_url, "referrer": "newdance.tv"},
