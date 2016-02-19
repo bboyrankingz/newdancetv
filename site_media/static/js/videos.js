@@ -98,6 +98,10 @@ app.config(function($routeProvider, $locationProvider) {
     templateUrl: 'about.html',
     controller: 'Videos'
   })
+  .when('/manage', {
+    templateUrl: 'manage.html',
+    controller: 'Videos'
+  })
   .otherwise({redirectTo: '/home'});
 });
 
