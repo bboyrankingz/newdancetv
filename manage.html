@@ -8,39 +8,30 @@
                 <button type="button" class="btn btn-template-main" ng-click="push()">Post video</button>
             </div>
         </div>
+        <br/>
         <div class="row">
-            <div class="col-md-12" infinite-scroll='loadMore()'>
-
-                <div ng-repeat="(key, videos) in tv">
-                    <div class="row">
-                        <div class="heading text-center">
-                            <h2 ng-cloak>{{key}}</h2>
-                        </div>
-                    </div>
-                    <div>
-                        <data-owl-carousel class="owl-carousel"
-                            data-options="{items:6, autoWidth:true, margin:20, stagePadding:50, slideBy:5,navRewind:false, nav:true, navText: [&#x27;<&#x27;,&#x27;>&#x27;], startPosition: 0}">
-                            <div style="overflow:hidden;width: 245px;" owl-carousel-item=""  ng-repeat="poi in videos"
-                                 class="item">
-                                <div class="media">
-                                    <a ng-href="{{ poi.url }}" class="thumbnail video-list-thumbs">
-                                        <img style="height: 181px;" ng-src="{{ poi.thumbnail_url}}" class="img-responsive"/>
-                                    </a>
-                                    <div class="caption" style="margin-left:30px; margin-top:-15px">
-                                        <div class="row">
-                                            <div>
-                                            	<strong><a ng-href="{{ poi.url }}">{{ poi.title
-                                                }}</a>
-                                                </strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+            <div class="col-md-12">
+                <div infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='1' ng-cloak>
+                    <div ng-repeat="video in reddit.items">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <img style="height: 181px;" ng-src="{{ video.thumbnail_url}}" class="img-responsive"/>
                             </div>
-                        </data-owl-carousel>
+                            <div class="col-xs-8">
+                                <h4 class="media-heading">{{video.title}}</h4>
+                                <ul>
+                                    <li>channel: {{video.channel_title}}</li>
+                                    <li>post date: {{video.created | date:'MMMM d, yyyy'}}</li>
+                                </ul>
+                                <button type="button" class="btn btn-danger" ng-click="remove(video.id)">Remove video</button>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div style='clear: both;'></div>
                     </div>
+                    <div ng-show='reddit.busy'>Loading data...</div>
                 </div>
-            </div>  
+            </div>
         </div>
     </div>
 </section>
