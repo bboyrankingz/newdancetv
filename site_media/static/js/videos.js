@@ -2,7 +2,7 @@ var app = angular.module("newdancetv", ['ngRoute', 'infinite-scroll', 'ngCookies
 
 app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
 
-  var channels = ["ProDance TV", "TVlilou", "OckeFilms", "The Legits", "stance"];
+  var channels = ["ProDance TV", "TVlilou", "OckeFilms", "The Legits", "stance", "allthatbreak"];
   var token = "";
   $scope.username = $cookies.get('username')
   $scope.tv = {}
@@ -12,7 +12,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
      if(channels.length >0)
      {
         channel = channels.shift()
-        requester.getData('http://bboyrankingz.com/footage/list/.json?channel_title=' + channel, channel)
+        requester.getData('https://bboyrankingz.com/footage/list/.json?channel_title=' + channel, channel)
         .then(function(result) {  // this is only run after $http completes
           $scope.tv[result[1]] = result[0];
         });
@@ -21,7 +21,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
 
   $scope.login = function(){
       $http({
-          url: 'http://bboyrankingz.com/api-token-auth/',
+          url: 'https://bboyrankingz.com/api-token-auth/',
           data:  {'username': $scope.username_modal, "password": $scope.password_modal},
           method: 'POST'
         }).
@@ -46,7 +46,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
   $scope.push = function(){
       $http.defaults.headers.common['Authorization'] = $cookies.get("Token");
       $http({
-          url: 'http://bboyrankingz.com/footage/list/.json',
+          url: 'https://bboyrankingz.com/footage/list/.json',
           data:  {'url': $scope.form_url, "referrer": "newdance.tv"},
           method: 'POST'
         }).
@@ -63,7 +63,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
   $scope.remove = function(id){
       $http.defaults.headers.common['Authorization'] = $cookies.get("Token");
       $http({
-          url: 'http://bboyrankingz.com/footage/' + id + '/',
+          url: 'https://bboyrankingz.com/footage/' + id + '/',
           method: 'DELETE'
         }).
         success(function(data) {
@@ -78,7 +78,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
 
   function load_users_videos()
   {
-    $http.get('http://bboyrankingz.com/footage/list/.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv').
+    $http.get('https://bboyrankingz.com/footage/list/.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv').
       success(function(data, status, headers, config) {
         $scope.tv["NewDanceTV Choices"] = data.results;
       });
@@ -88,7 +88,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
     //     $scope.tv["User videos"] = data.results;
     //   });
 
-    $scope.reddit = new Reddit('http://bboyrankingz.com/footage/list/.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv');
+    $scope.reddit = new Reddit('https://bboyrankingz.com/footage/list/.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv');
   };
 
 
