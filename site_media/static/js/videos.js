@@ -1,18 +1,24 @@
 var app = angular.module("newdancetv", ['ngRoute', 'infinite-scroll', 'ngCookies']);
 
 app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
-
+  var server = "http://localhost:8000"
   var channels = ["ProDance TV", "TVlilou", "OckeFilms", "The Legits", "stance", "allthatbreak"];
   var token = "";
   $scope.username = $cookies.get('username')
   $scope.tv = {}
   load_users_videos();
 
+
+  $http.get(server + '/media/list/.json?&media_type=streaming&page_size=3&channel_title=ProDance%20TV').
+    success(function(data, status, headers, config) {
+      $scope.streaming = data;
+    });
+
   $scope.loadMore = function() {
      if(channels.length >0)
      {
         channel = channels.shift()
-        requester.getData('https://bboyrankingz.com/footage/list/.json?channel_title=' + channel, channel)
+        requester.getData(server + '/footage/list/.json?channel_title=' + channel, channel)
         .then(function(result) {  // this is only run after $http completes
           $scope.tv[result[1]] = result[0];
         });
@@ -21,7 +27,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
 
   $scope.login = function(){
       $http({
-          url: 'https://bboyrankingz.com/api-token-auth/',
+          url: server + '/api-token-auth/',
           data:  {'username': $scope.username_modal, "password": $scope.password_modal},
           method: 'POST'
         }).
@@ -46,7 +52,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
   $scope.push = function(){
       $http.defaults.headers.common['Authorization'] = $cookies.get("Token");
       $http({
-          url: 'https://bboyrankingz.com/footage/list/.json',
+          url: server + '/footage/list/.json',
           data:  {'url': $scope.form_url, "referrer": "newdance.tv"},
           method: 'POST'
         }).
@@ -63,7 +69,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
   $scope.remove = function(id){
       $http.defaults.headers.common['Authorization'] = $cookies.get("Token");
       $http({
-          url: 'https://bboyrankingz.com/footage/' + id + '/',
+          url: server + '/footage/' + id + '/',
           method: 'DELETE'
         }).
         success(function(data) {
@@ -78,7 +84,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
 
   function load_users_videos()
   {
-    $http.get('https://bboyrankingz.com/footage/list/.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv').
+    $http.get(server + '/footage/list/.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv').
       success(function(data, status, headers, config) {
         $scope.tv["NewDanceTV Choices"] = data.results;
       });
@@ -88,11 +94,52 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
     //     $scope.tv["User videos"] = data.results;
     //   });
 
-    $scope.reddit = new Reddit('https://bboyrankingz.com/footage/list/.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv');
+    $scope.reddit = new Reddit(server + '/footage/list/.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv');
   };
 
 
 });
+
+
+app.directive("revSlider", function($timeout) {
+    return {
+        restrict: 'A',
+        transclude: false,
+        link: function (scope) {
+            scope.initSlider = function() {
+              
+              $timeout(function() {
+                // provide any default options you want
+                jQuery('#revslider').revolution({
+                    delay:8000,
+                    startwidth:1170,
+                    startheight:500,
+                    fullWidth:"on",
+                    fullScreen:"on",
+                    hideTimerBar: "off",
+                    spinner:"spinner4",
+                    navigationStyle: "preview4",
+                    soloArrowLeftHOffset:20,
+                    soloArrowRightHOffset:20
+                });
+              });
+            };
+        }
+    };
+})
+.directive('revSliderItem', [function() {
+    return {
+        restrict: 'A',
+        transclude: false,
+        link: function(scope) {
+          // wait for the last item in the ng-repeat then call init
+            if(scope.$last) {
+              scope.initSlider();
+            }
+        }
+    };
+}]);
+
 
 app.factory('requester', function($http) {
 
@@ -151,7 +198,6 @@ app.config(function($routeProvider, $locationProvider) {
   })
   .otherwise({redirectTo: '/home'});
 });
-
 
 
 
