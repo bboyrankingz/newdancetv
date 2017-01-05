@@ -9,7 +9,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
   load_users_videos();
 
 
-  $http.get(server + '/media/list/.json?&media_type=streaming&page_size=3&channel_title=ProDance%20TV').
+  $http.get(server + '/media/list.json?&media_type=streaming&page_size=3&channel_title=ProDance%20TV').
     success(function(data, status, headers, config) {
       $scope.streaming = data;
     });
@@ -18,7 +18,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
      if(channels.length >0)
      {
         channel = channels.shift()
-        requester.getData(server + '/footage/list/.json?channel_title=' + channel, channel)
+        requester.getData(server + '/footage/list.json?channel_title=' + channel, channel)
         .then(function(result) {  // this is only run after $http completes
           $scope.tv[result[1]] = result[0];
         });
@@ -52,7 +52,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
   $scope.push = function(){
       $http.defaults.headers.common['Authorization'] = $cookies.get("Token");
       $http({
-          url: server + '/footage/list/.json',
+          url: server + '/footage/list.json',
           data:  {'url': $scope.form_url, "referrer": "newdance.tv"},
           method: 'POST'
         }).
@@ -84,7 +84,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
 
   function load_users_videos()
   {
-    $http.get(server + '/footage/list/.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv').
+    $http.get(server + '/footage/list.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv').
       success(function(data, status, headers, config) {
         $scope.tv["NewDanceTV Choices"] = data.results;
       });
@@ -94,7 +94,7 @@ app.controller("Videos", function($scope, $http, $cookies, requester, Reddit) {
     //     $scope.tv["User videos"] = data.results;
     //   });
 
-    $scope.reddit = new Reddit(server + '/footage/list/.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv');
+    $scope.reddit = new Reddit(server + '/footage/list.json?submitted_by__groups__name=newdancetv&referrer=newdance.tv');
   };
 
 
